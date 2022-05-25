@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 pragma solidity ^0.5.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC721/ERC721Full.sol";
@@ -61,7 +60,7 @@ contract UkraineArtMarket is ERC721Full, Ownable {
     }
 
 }
-=======
+
 pragma solidity >=0.4.22 <0.6.0;
 
 contract MartianAuction {
@@ -82,11 +81,6 @@ contract MartianAuction {
     // Events that will be emitted on changes.
     event HighestBidIncreased(address bidder, uint amount);
     event AuctionEnded(address winner, uint amount);
-
-    // The following is a so-called natspec comment,
-    // recognizable by the three slashes.
-    // It will be shown when the user is asked to
-    // confirm a transaction.
 
     /// Create a simple auction with `_biddingTime`
     /// seconds bidding time on behalf of the
@@ -150,18 +144,7 @@ contract MartianAuction {
     /// End the auction and send the highest bid
     /// to the beneficiary.
     function auctionEnd() public {
-        // It is a good guideline to structure functions that interact
-        // with other contracts (i.e. they call functions or send Ether)
-        // into three phases:
-        // 1. checking conditions
-        // 2. performing actions (potentially changing conditions)
-        // 3. interacting with other contracts
-        // If these phases are mixed up, the other contract could call
-        // back into the current contract and modify the state or cause
-        // effects (ether payout) to be performed multiple times.
-        // If functions called internally include interaction with external
-        // contracts, they also have to be considered interaction with
-        // external contracts.
+       
 
         // 1. Conditions
         require(!ended, "auctionEnd has already been called.");
@@ -175,4 +158,3 @@ contract MartianAuction {
         beneficiary.transfer(highestBid);
     }
 }
->>>>>>> trunk
