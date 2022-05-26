@@ -5,7 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
 
-load_dotenv()
+load_dotenv("key.env")
 
 # Define and connect a new Web3 provider
 w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
@@ -49,18 +49,12 @@ accounts = w3.eth.accounts
 account = accounts[0]
 student_account = st.selectbox("Select Account", options=accounts)
 certificate_details = st.text_input("Certificate Details", value="FinTech Certificate of Completion")
-if st.button("Award Certificate"):
-    contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
 
 ################################################################################
 # Display Certificate
 ################################################################################
 certificate_id = st.number_input("Enter a Certificate Token ID to display", value=0, step=1)
-if st.button("Display Certificate"):
-    # Get the certificate owner
-    certificate_owner = contract.functions.ownerOf(certificate_id).call()
-    st.write(f"The certificate was awarded to {certificate_owner}")
+
 
     # Get the certificate's metadata
-    certificate_uri = contract.functions.tokenURI(certificate_id).call()
-    st.write(f"The certificate's tokenURI metadata is {certificate_uri}")
+  
