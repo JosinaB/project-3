@@ -48,13 +48,60 @@ contract = load_contract()
 accounts = w3.eth.accounts
 account = accounts[0]
 student_account = st.selectbox("Select Account", options=accounts)
-certificate_details = st.text_input("Certificate Details", value="FinTech Certificate of Completion")
+certificate_details = st.text_input("Certificate Details", value="Art Ownership Certification")
+if st.button("Award Certificate"):
+    contract.functions.awardCertificate(student_account, certificate_details).transact({'from': account, 'gas': 1000000})
 
 ################################################################################
 # Display Certificate
 ################################################################################
 certificate_id = st.number_input("Enter a Certificate Token ID to display", value=0, step=1)
-
+if st.button("Display Certificate"):
+    # Get the certificate owner
+    certificate_owner = contract.functions.ownerOf(certificate_id).call()
+    st.write(f"The certificate was awarded to {certificate_owner}")
 
     # Get the certificate's metadata
-  
+    certificate_uri = contract.functions.tokenURI(certificate_id).call()
+    st.write(f"The certificate's tokenURI metadata is {certificate_uri}")
+
+
+def pin_cert(song_name, cert_file):
+    # Pin the file to IPFS with Pinata
+    ipfs_file_hash = pin_file_to_ipfs(cert_file.getvalue())
+
+    # Build a token metadata file for the artwork
+    token_json = {
+        "name": cert_name,
+        "image": ipfs_file_hash
+    }
+    json_data = convert_data_to_json(token_json)
+
+    # Pin the json to IPFS with Pinata
+    json_ipfs_hash = pin_json_to_ipfs(json_data)
+
+    return json_ipfs_hash
+
+    ################################################################################
+# Award Certificate
+################################################################################
+
+accounts = w3.eth.accounts
+account = accounts[0]
+cert_name = st.text_input("song Name: ")
+student_account = st.selectbox("Select Account", options=accounts)
+certificate_details = st.text_input("Certificate Details", value="Certification Of Ownership")
+file = st.file_uploader("Upload Certificate", type=["ogg", "wma", "mp3", "AAC", "FLAC", "AIFF", "WAV"])
+if st.button("Award Certificate"):
+    cert_ipfs_hash = pin_cert(cert_name, file)
+    cert_uri = f"ipfs://{cert_ipfs_hash}"
+    tx_hash = cert_contract.functions.registerCertificate(
+        student_account,
+        cert_uri
+    ).transact({'from': student_account, 'gas': 1000000})
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    st.write("Transaction receipt mined:")
+    st.write(dict(receipt))
+    st.write("You can view the pinned metadata file with the following IPFS Gateway Link")
+    st.markdown(f"[Certificate IPFS Gateway Link](https://ipfs.io/ipfs/{cert_ipfs_hash})")
+st.markdown("---")
