@@ -32,7 +32,7 @@ The Ukraine Fund Marketplace is intended as a stepping stone in the evolution of
 If some give a lot and a lot give some, we could all help and receive help when needed. My art is a photograph, maybe yours is a drawing, a coin, or promise to host a displaced family. It is now easier than ever to give, even when you can't afford to give money. 
 
 
-## The Development Team:
+## The Development Team
 
 - Diego Torres
 - Sean Endicott
