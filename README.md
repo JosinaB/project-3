@@ -12,6 +12,14 @@ The conception of this project was the convergence of modern tech and philanthro
 
 The Ukraine fund marketplace uses the Ethereum blockchain for this marketplace. The ERC721 smart contracts are written in Solidity and the user's interface will be run through [Streamlit](https://streamlit.io/). The digital representation of the art will be pinned to [IPFS](https://ipfs.io/) by [Pinata](https://app.pinata.cloud/pinmanager)
 
+## How to use
+
+* We used [Remix](https://remix.ethereum.org/) to write, compile, and deploy the contracts. 
+* [Metamask](https://metamask.io/) and Rinkeby were used for the test wallet.
+* [Rinkeby faucet](https://rinkebyfaucet.com/) offers tokens daily.
+* [Pinata](https://app.pinata.cloud/pinmanager) and [IPFS](https://ipfs.io/) were used for the art
+* [Streamlit](https://streamlit.io/) is used to interact with the contracts
+* Languages used include Solidity, Python, and JSON
 
 ![This is a alt text.](https://www.opengovguide.com/wp-content/uploads/2019/07/Boxcutout_SE.jpg)
 
