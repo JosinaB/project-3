@@ -32,7 +32,7 @@ def load_contract():
         certificate_abi = json.load(f)
 
     # Set the contract address (this is the address of the deployed contract)
-    contract_address = os.getenv("SMART_CONTRACT_ADDRESS")
+    contract_address = Web3.toChecksumAddress(0x43e851d41b24048b36e9e46d3979a654fb4a509c)
 
     # Get the contract
     contract = w3.eth.contract(
@@ -50,7 +50,7 @@ contract = load_contract()
 ################################################################################
 # Award Certificate
 ################################################################################
-web3.eth.accounts.privateKeyToAccount('0x348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709');
+
 
 
 account_selection = ["Artist", "Buyer"]
@@ -59,7 +59,7 @@ account_selected = st.radio('Are you a Artist Donator , or you are a Buyer?', ac
 if account_selection == "Artist":
     st.text_input('Enter account address')
 else:
-   st.text_input('Enter account address')
+    st.text_input('Enter account address')
 
 
 
