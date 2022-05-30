@@ -2,11 +2,16 @@ pragma solidity ^0.5.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC721/ERC721Full.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/ownership/Ownable.sol";
-import "./UkraineContract.sol";
+import "./UkraineAuction.sol";
 
 contract UkraineArtMarket is ERC721Full, Ownable {
 
     constructor() ERC721Full("UkraineArtMarket", "ART") public {}
+      struct Artwork {
+        string name;
+        string artist;
+        uint256 appraisalValue;
+    }
 
     using Counters for Counters.Counter;
 
@@ -15,20 +20,28 @@ contract UkraineArtMarket is ERC721Full, Ownable {
     address payable foundation_address = msg.sender;
 
     mapping(uint => UkraineAuction) public auctions;
-
+    mapping(uint256 => Artwork) public artCollection;
     modifier artRegistered(uint token_id) {
         require(_exists(token_id), "Land not registered!");
         _;
     }
 
-    function registerArt(string memory uri) public payable onlyOwner {
-        token_ids.increment();
-        uint token_id = token_ids.current();
-        _mint(foundation_address, token_id);
-        _setTokenURI(token_id, uri);
-        createAuction(token_id);
-    }
+     function registerArtwork(
+        address owner,
+        string memory name,
+        string memory artist,
+        uint256 initialAppraisalValue,
+        string memory tokenURI
+    ) public returns (uint256) {
+        uint256 tokenId = totalSupply();
 
+        _mint(owner, tokenId);
+        _setTokenURI(tokenId, tokenURI);
+
+        artCollection[tokenId] = Artwork(name, artist, initialAppraisalValue);
+
+        return tokenId;
+    }
     function createAuction(uint token_id) public onlyOwner {
         auctions[token_id] = new UkraineAuction(foundation_address);
     }
