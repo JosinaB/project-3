@@ -44,4 +44,5 @@ Links
 
 * [Ukraine government website](https://www.government)
 * [IMD](https://www.imd.org/research-knowledge/articles/could-blockchain-revolutionize-philanthropy/)
+* [Avatars For Ukraine](https://www.avatarsforukraine.com/)
 

@@ -172,7 +172,7 @@ if account == "Donor":
     ##############################################################################        
 if account == "Buyer":
 
-    st.image.open(https://ipfs.io/ipfs/QmXz997DowsBcEcspKUMfjHLL2zB5YEKq3cCKALVEjjeFu) 
+    st.image(Path('./images/fight.jpg', caption='Fight')) 
     st.multiselect('pick the art item being auctioned', ['auction1','auction2', 'auction3'])
     
     sender = st.text_input('Enter account address')
