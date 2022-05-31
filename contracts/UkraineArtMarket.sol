@@ -12,6 +12,12 @@ contract UkraineArtMarket is ERC721Full, Ownable {
         string artist;
         uint256 appraisalValue;
     }
+        struct Contributors {
+        uint id;
+        string name;
+        uint256 amount;
+        address sender_address;
+    }
 
     using Counters for Counters.Counter;
 
@@ -19,6 +25,8 @@ contract UkraineArtMarket is ERC721Full, Ownable {
 
     address payable foundation_address = msg.sender;
 
+    uint256 id = 0;
+    mapping(uint => Contributors) public contributor;
     mapping(uint => UkraineAuction) public auctions;
     mapping(uint256 => Artwork) public artCollection;
     modifier artRegistered(uint token_id) {
@@ -70,6 +78,20 @@ contract UkraineArtMarket is ERC721Full, Ownable {
     function bid(uint token_id) public payable artRegistered(token_id) {
         UkraineAuction auction = auctions[token_id];
         auction.bid.value(msg.value)(msg.sender);
+    }
+
+       function doDonation(string memory name) public payable {
+        id += 1;
+        contributor[id] = Contributors(id, name, msg.value, msg.sender);
+    }
+
+
+    function getBalance() public view returns(uint) {
+        return address(this).balance;
+    }
+
+    function withdrawMoney(address payable _to) public onlyOwner {
+        _to.transfer(getBalance());
     }
 
 }
