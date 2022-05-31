@@ -110,7 +110,7 @@ def pin_appraisal_report(report_content):
 
 account_selection = ["Artist", "Buyer", "Donor"]
 
-account = st.radio('Are you a Artist Donator , or you are a Buyer?', account_selection)
+account = st.radio('Are you an Artist, Buyer , or Donor?', account_selection)
     #####################################################################################
     #### Artist
     #####################################################################################
@@ -159,9 +159,12 @@ if account == "Donor":
     st.sidebar.radio('Select one:', ['Bitcoin', 'Etherium', "Dogecoin", "XRP", "Solana"])
     amount = st.text_input("Enter amount you want to donate");
     contributor_address = st.text_input("Enter account address");
+    donor_name = st.text_input("Enter Name");
     
     if st.button("donate now"):
-        st.text('tanks for your donations')
+        donation_hash = contract.functions.doDonation(id, donor_name, amount, address).transact({'from': address, 'gas': 1000000})
+        
+        st.text('thanks for your donations')
         st.balloons()
 
     ################################################################################
@@ -169,14 +172,12 @@ if account == "Donor":
     ##############################################################################        
 if account == "Buyer":
 
-    st.multiselect('pick the art article being auction', ['auction1','auction2', 'auction3'])
+    st.image(Path('./images/fight.jpg', caption='Fight')) 
+    st.multiselect('pick the art item being auctioned', ['auction1','auction2', 'auction3'])
     
-    
-
-
     sender = st.text_input('Enter account address')
     if st.button("Place bid"):
-        bid = second_contract.functions.bid(sender)
+        bid_hash = second_contract.functions.bid(sender).transact()
         highestBidder = second_contract.functions.highestBidder()
         if highestBidder == sender:
             st.success("Congratulation you won the auction")
