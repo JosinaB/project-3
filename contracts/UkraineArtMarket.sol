@@ -30,7 +30,7 @@ contract UkraineArtMarket is ERC721Full, Ownable {
     mapping(uint => UkraineAuction) public auctions;
     mapping(uint256 => Artwork) public artCollection;
     modifier artRegistered(uint token_id) {
-        require(_exists(token_id), "Land not registered!");
+        require(_exists(token_id), "Art not registered!");
         _;
     }
 

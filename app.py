@@ -172,14 +172,12 @@ if account == "Donor":
     ##############################################################################        
 if account == "Buyer":
 
+    st.image.open(https://ipfs.io/ipfs/QmXz997DowsBcEcspKUMfjHLL2zB5YEKq3cCKALVEjjeFu) 
     st.multiselect('pick the art item being auctioned', ['auction1','auction2', 'auction3'])
     
-    
-
-
     sender = st.text_input('Enter account address')
     if st.button("Place bid"):
-        bid = second_contract.functions.bid(sender)
+        bid_hash = second_contract.functions.bid(sender).transact()
         highestBidder = second_contract.functions.highestBidder()
         if highestBidder == sender:
             st.success("Congratulation you won the auction")
