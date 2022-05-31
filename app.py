@@ -111,7 +111,9 @@ def pin_appraisal_report(report_content):
 account_selection = ["Artist", "Buyer", "Donor"]
 
 account = st.radio('Are you a Artist Donator , or you are a Buyer?', account_selection)
-
+    #####################################################################################
+    #### Artist
+    #####################################################################################
 if account == "Artist":
     st.markdown("## Register New Artwork")
 
@@ -150,8 +152,9 @@ if account == "Artist":
     if st.button("create auction"):
         creacteAuction = contract.functions.createAuction("token_id")
         
-        
-
+    ###########################################################################       
+    ######## DONOR
+    #############################################################################
 if account == "Donor":
     st.sidebar.radio('Select one:', ['Bitcoin', 'Etherium', "Dogecoin", "XRP", "Solana"])
     amount = st.text_input("Enter amount you want to donate");
@@ -160,6 +163,10 @@ if account == "Donor":
     if st.button("donate now"):
         st.text('tanks for your donations')
         st.balloons()
+
+    ################################################################################
+    ###### Buyer
+    ##############################################################################        
 if account == "Buyer":
 
     st.multiselect('pick the art article being auction', ['auction1','auction2', 'auction3'])
