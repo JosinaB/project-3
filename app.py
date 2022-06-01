@@ -157,10 +157,11 @@ if account == "Artist":
     ######## DONOR
     #############################################################################
 if account == "Donor":
-    st.sidebar.radio('Select one:', ['Bitcoin', 'Etherium', "Dogecoin", "XRP", "Solana"])
-    amount = st.text_input("Enter amount you want to donate");
-    contributor_address = st.text_input("Enter account address");
-    # donor_name = st.text_input("Enter Name");
+    st.sidebar.radio('Select one:', ['Bitcoin', 'Ethereum', "Dogecoin", "XRP", "Solana"])
+    donor_name = st.text_input("Enter Name", value=0, key=0);
+    amount = st.text_input("Enter amount you want to donate", value=0, key=1);
+    contributor_address = st.text_input("Enter account address", v alue=0, key=2);
+    
     
     if st.button("donate now"):
         donation_hash = contract.functions.doDonation(id, donor_name, amount, address).transact({'from': address, 'gas': 1000000})
