@@ -160,7 +160,7 @@ if account == "Donor":
     st.sidebar.radio('Select one:', ['Bitcoin', 'Etherium', "Dogecoin", "XRP", "Solana"])
     amount = st.text_input("Enter amount you want to donate");
     contributor_address = st.text_input("Enter account address");
-    donor_name = st.text_input("Enter Name");
+    # donor_name = st.text_input("Enter Name");
     
     if st.button("donate now"):
         donation_hash = contract.functions.doDonation(id, donor_name, amount, address).transact({'from': address, 'gas': 1000000})
