@@ -5,6 +5,7 @@ from web3 import Web3
 from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
+from PIL import Image
 from pinata import pin_file_to_ipfs, pin_json_to_ipfs, convert_data_to_json
 
 load_dotenv("key.env")
@@ -171,12 +172,13 @@ if account == "Donor":
     ###### Buyer
     ##############################################################################        
 if account == "Buyer":
+    image = Image.open('./images/Fight.jpg')
 
-    st.image(Path('./images/fight.jpg', caption='Fight')) 
+    st.image(image, caption='Fight')
     st.multiselect('pick the art item being auctioned', ['auction1','auction2', 'auction3'])
     
-    sender = st.text_input('Enter account address')
-    if st.button("Place bid"):
+sender = st.text_input('Enter account address')
+if st.button("Place bid"):
         bid_hash = second_contract.functions.bid(sender).transact()
         highestBidder = second_contract.functions.highestBidder()
         if highestBidder == sender:
