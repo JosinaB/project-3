@@ -172,9 +172,13 @@ if account == "Donor":
     ###### Buyer
     ##############################################################################        
 if account == "Buyer":
-    image = Image.open('./images/Fight.jpg','./images/Protection.jpg', './images/The Ancestors.jpg' )
+    image1 = Image.open('./images/Fight.jpg')
+    image2 = Image.open('./images/Protection.jpg')
+    image3 = Image.open('./images/The Ancestors.jpg')
+    st.image(image1, caption='Fight')
+    st.image(image2, caption='Protection')
+    st.image(image3, caption='The Ancestors')
 
-    st.image(image, caption=['Fight', 'Protection', 'The Ancestors'])
     st.multiselect('pick the art item being auctioned', ['Fight','Protection', 'The Ancestors'])
     
 sender = st.text_input('Enter account address')
