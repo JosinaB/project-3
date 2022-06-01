@@ -21,9 +21,11 @@ w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 st.title("Art Auction Fundraiser")
 st.markdown("### Ukraine aid auction")
 
-st.image('https://www.networkforgood.com/wp-content/uploads/shutterstock_1703436250-scaled.jpg')
+#st.image('https://www.networkforgood.com/wp-content/uploads/shutterstock_1703436250-scaled.jpg')
+image4 = Image.open('./images/Evacuation.png')
+st.image(image4, caption='Evacuation')
 
-st.markdown("## Welcome to our Art Auction Fundraiser, to support non-profit organizations, This market serves to raise funds for the Ukraine invation by auctioning art donated by different artist, please place a bid!!  ")
+st.markdown("## Welcome to our Art Auction Fundraiser, to support non-profit organizations, This market serves to raise funds for the Ukraine invasion by auctioning art donated by different artist, please place a bid!!  ")
 
 
 # Cache the contract on load
@@ -160,7 +162,7 @@ if account == "Donor":
     st.sidebar.radio('Select one:', ['Bitcoin', 'Ethereum', "Dogecoin", "XRP", "Solana"])
     donor_name = st.text_input("Enter Name", value=0, key=0);
     amount = st.text_input("Enter amount you want to donate", value=0, key=1);
-    contributor_address = st.text_input("Enter account address", v alue=0, key=2);
+    contributor_address = st.text_input("Enter account address", value=0, key=2);
     
     
     if st.button("donate now"):
