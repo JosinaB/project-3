@@ -5,6 +5,7 @@ from web3 import Web3
 from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
+from PIL import Image
 from pinata import pin_file_to_ipfs, pin_json_to_ipfs, convert_data_to_json
 
 load_dotenv("key.env")
@@ -20,9 +21,11 @@ w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 st.title("Art Auction Fundraiser")
 st.markdown("### Ukraine aid auction")
 
-st.image('https://www.networkforgood.com/wp-content/uploads/shutterstock_1703436250-scaled.jpg')
+#st.image('https://www.networkforgood.com/wp-content/uploads/shutterstock_1703436250-scaled.jpg')
+image4 = Image.open('./images/Evacuation.png')
+st.image(image4, caption='Evacuation')
 
-st.markdown("## Welcome to our Art Auction Fundraiser, to support non-profit organizations, This market serves to raise funds for the Ukraine invation by auctioning art donated by different artist, please place a bid!!  ")
+st.markdown("## Welcome to our Art Auction Fundraiser, to support non-profit organizations, This market serves to raise funds for the Ukraine invasion by auctioning art donated by different artist, please place a bid!!  ")
 
 
 # Cache the contract on load
@@ -156,10 +159,11 @@ if account == "Artist":
     ######## DONOR
     #############################################################################
 if account == "Donor":
-    st.sidebar.radio('Select one:', ['Bitcoin', 'Etherium', "Dogecoin", "XRP", "Solana"])
-    amount = st.text_input("Enter amount you want to donate");
-    contributor_address = st.text_input("Enter account address");
-    donor_name = st.text_input("Enter Name");
+    st.sidebar.radio('Select one:', ['Bitcoin', 'Ethereum', "Dogecoin", "XRP", "Solana"])
+    donor_name = st.text_input("Enter Name", value=0, key=0);
+    amount = st.text_input("Enter amount you want to donate", value=0, key=1);
+    contributor_address = st.text_input("Enter account address", value=0, key=2);
+    
     
     if st.button("donate now"):
         donation_hash = contract.functions.doDonation(id, donor_name, amount, address).transact({'from': address, 'gas': 1000000})
@@ -171,12 +175,17 @@ if account == "Donor":
     ###### Buyer
     ##############################################################################        
 if account == "Buyer":
+    image1 = Image.open('./images/Fight.jpg')
+    image2 = Image.open('./images/Protection.jpg')
+    image3 = Image.open('./images/The Ancestors.jpg')
+    st.image(image1, caption='Fight')
+    st.image(image2, caption='Protection')
+    st.image(image3, caption='The Ancestors')
 
-    st.image(Path('./images/fight.jpg', caption='Fight')) 
-    st.multiselect('pick the art item being auctioned', ['auction1','auction2', 'auction3'])
+    st.multiselect('pick the art item being auctioned', ['Fight','Protection', 'The Ancestors'])
     
-    sender = st.text_input('Enter account address')
-    if st.button("Place bid"):
+sender = st.text_input('Enter account address')
+if st.button("Place bid"):
         bid_hash = second_contract.functions.bid(sender).transact()
         highestBidder = second_contract.functions.highestBidder()
         if highestBidder == sender:
